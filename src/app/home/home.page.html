@@ -1,0 +1,17 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Fiche d'identité</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <ion-button (click)="chooseFile()">Choisissez votre CV</ion-button>
+    <div class="">
+      {{ returnedpath }}
+    </div>
+  </div>
+</ion-content>
