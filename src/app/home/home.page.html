@@ -9,9 +9,19 @@
 
 <ion-content>
   <div class="ion-padding">
-    <ion-button (click)="chooseFile()">Choisissez votre CV</ion-button>
-    <div class="">
-      {{ returnedpath }}
-    </div>
+    <ion-button (click)="chooseFile()" expand="full">Choisissez votre CV</ion-button>
   </div>
+
+  <ion-list *ngIf="showAddButton() == true">
+    <ion-item lines="inset" *ngFor="let data of Data">
+      <ion-label>
+        <h5>{{ data.title }}</h5>
+      </ion-label>
+      <div class="item-note" item-end>
+        <ion-icon name="eye-outline" style="zoom:2.0" (click)="previwPdfFile(data.link)"></ion-icon>        
+        <ion-icon name="trash-outline" style="zoom:2.0" (click)="deleteFile(data.id)"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
+
 </ion-content>
