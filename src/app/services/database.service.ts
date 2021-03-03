@@ -11,7 +11,7 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
 })
 export class DatabaseService {
   private storage: SQLiteObject;
-  songsList = new BehaviorSubject([]);
+  filesList = new BehaviorSubject([]);
   private isDbReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
@@ -37,7 +37,7 @@ export class DatabaseService {
   }
 
   fetchFiles(): Observable<File[]> {
-    return this.songsList.asObservable();
+    return this.filesList.asObservable();
   }
 
   // Render fake data
@@ -69,7 +69,7 @@ export class DatabaseService {
           });
         }
       }
-      this.songsList.next(items);
+      this.filesList.next(items);
     });
   }
 
@@ -83,12 +83,10 @@ export class DatabaseService {
 
   // Get single files
   getFile(ref) {
-    return this.storage.executeSql("SELECT * FROM files WHERE ref = ?", [ref]).then(res => {
-      return {
-        id: res.rows.item(0).id,
-        title: res.rows.item(0).title
-      }
-    });
+    return this.storage.executeSql("SELECT * FROM files WHERE ref = ?", [ref])
+    .then(res => {
+      return res.rows.length
+    }).catch(error => alert("Error occured while getting file :" + error));
   }
 
   // Update

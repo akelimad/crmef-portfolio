@@ -34,6 +34,16 @@ export class HomePage implements OnInit {
   }
 
   chooseFile() {
+    this.databseService.getFile("CV").then(response => {
+      if (response > 0) {
+        this.showAlert("Vous avez déjà attaché votre CV, vuillez le supprimer pour pouvoir l'attacher à nouveau.")
+      } else {
+        this.callChooseFile()
+      }
+    });
+  }
+
+  callChooseFile() {
     this.fileChooser.open().then((fileuri) => {
       this.filePath.resolveNativePath(fileuri).then((resolvedPath) => {
         this.returnedpath = resolvedPath
